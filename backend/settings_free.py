@@ -5,7 +5,6 @@ Uses FreeSQLDatabase.com for MySQL + Render for backend + Vercel for frontend
 
 from .settings import *
 import os
-import dj_database_url
 
 # Use PyMySQL instead of mysqlclient for better compatibility
 import pymysql
@@ -27,6 +26,20 @@ ALLOWED_HOSTS = [
 # Add your custom domain when you have one
 if os.getenv('CUSTOM_DOMAIN'):
     ALLOWED_HOSTS.append(os.getenv('CUSTOM_DOMAIN'))
+
+# Add whitenoise to middleware for static file serving
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this for static files
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
 
 # Database - Free MySQL hosting
 DATABASES = {
