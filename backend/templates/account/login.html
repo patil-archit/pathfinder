@@ -1,0 +1,167 @@
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - PathFinder AI Career Advisor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .login-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .social-login {
+            margin-bottom: 20px;
+        }
+        .social-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .google-btn {
+            background-color: #db4437;
+            color: white;
+        }
+        .google-btn:hover {
+            background-color: #c23321;
+        }
+        .github-btn {
+            background-color: #333;
+            color: white;
+        }
+        .github-btn:hover {
+            background-color: #24292e;
+        }
+        .linkedin-btn {
+            background-color: #0077b5;
+            color: white;
+        }
+        .linkedin-btn:hover {
+            background-color: #005885;
+        }
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            color: #666;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .login-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .links a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login to PathFinder AI</h1>
+        
+        {% if form.errors %}
+            <div style="color: red; margin-bottom: 20px;">
+                {{ form.errors }}
+            </div>
+        {% endif %}
+        
+        <div class="social-login">
+            <h3 style="text-align: center; margin-bottom: 15px;">Social Login</h3>
+            
+            {% providers_media_js %}
+            
+            {% if providers %}
+                {% for provider in providers %}
+                    {% if provider.id == "google" %}
+                        <a href="{% provider_login_url 'google' %}" class="social-btn google-btn">
+                            🔴 Continue with Google
+                        </a>
+                    {% elif provider.id == "github" %}
+                        <a href="{% provider_login_url 'github' %}" class="social-btn github-btn">
+                            🐙 Continue with GitHub
+                        </a>
+                    {% elif provider.id == "linkedin_oauth2" %}
+                        <a href="{% provider_login_url 'linkedin_oauth2' %}" class="social-btn linkedin-btn">
+                            💼 Continue with LinkedIn
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+        <div class="divider">
+            <span>or</span>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.login.id_for_label }}">Email:</label>
+                {{ form.login }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.password.id_for_label }}">Password:</label>
+                {{ form.password }}
+            </div>
+            
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+        
+        <div class="links">
+            <a href="{% url 'account_signup' %}">Don't have an account? Sign up</a><br>
+            <a href="{% url 'account_reset_password' %}">Forgot your password?</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+[phases.setup]
+nixPkgs = ["python311", "nodejs_18", "postgresql"]
+
+[phases.install]
+cmds = [
+    "pip install -r requirements-prod.txt",
+    "cd pathfinder-frontend && npm ci && npm run build"
+]
+
+[phases.build]
+cmds = [
+    "python manage.py collectstatic --noinput",
+    "cp -r pathfinder-frontend/dist/* staticfiles/"
+]
+
+[start]
+cmd = "python manage.py migrate && gunicorn backend.wsgi:application --bind 0.0.0.0:$PORT"
+
+[variables]
+NIXPACKS_PYTHON_VERSION = "3.11"
+DJANGO_SETTINGS_MODULE = "backend.settings_prod"
