@@ -110,8 +110,20 @@ if os.getenv('DATABASE_URL'):
     DATABASES = {
         'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
     }
+# Check if individual database environment variables are provided
+elif os.getenv('DB_HOST'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.getenv('DB_NAME'),
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST': os.getenv('DB_HOST'),
+            'PORT': os.getenv('DB_PORT', '3306'),
+        }
+    }
 else:
-    # Default to SQLite for development if no MySQL is available
+    # Default to SQLite for development if no database is configured
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
