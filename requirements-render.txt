@@ -1,0 +1,46 @@
+# Render-compatible requirements for PathFinder AI
+# Using PyMySQL instead of mysqlclient for better compatibility
+
+# Core Django packages
+Django==5.2.6
+djangorestframework==3.16.1
+djangorestframework_simplejwt==5.5.1
+django-cors-headers==4.8.0
+django-allauth==65.11.2
+
+# Database - PyMySQL instead of mysqlclient (more compatible)
+PyMySQL==1.1.0
+
+# Production server
+gunicorn==21.2.0
+whitenoise==6.6.0
+
+# Environment and utilities
+python-dotenv==1.1.1
+requests==2.32.5
+
+# Core Python packages
+cryptography==45.0.7
+certifi==2025.8.3
+charset-normalizer==3.4.3
+urllib3==2.5.0
+idna==3.10
+
+# JWT and authentication
+PyJWT==2.10.1
+
+# Async support
+asgiref==3.9.1
+
+# SQL parsing
+sqlparse==0.5.3
+
+# Type checking
+typing_extensions==4.15.0
+
+# Optional: AI services (lightweight versions)
+pydantic==2.11.9
+pydantic_core==2.33.2
+
+# Optional: Google AI (if needed)
+google-generativeai==0.8.5
