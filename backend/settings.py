@@ -14,6 +14,13 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
+# Use PyMySQL as MySQLdb replacement for better compatibility
+try:
+    import pymysql
+    pymysql.install_as_MySQLdb()
+except ImportError:
+    pass
+
 # Load environment variables from .env file
 load_dotenv()
 
