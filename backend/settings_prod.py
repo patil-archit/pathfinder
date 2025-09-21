@@ -143,3 +143,15 @@ if os.getenv('REDIS_URL'):
 # AI Service Configuration
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 GOOGLE_AI_API_KEY = os.getenv('GOOGLE_AI_API_KEY')
+
+# India-specific configurations
+LANGUAGE_CODE = os.getenv('LANGUAGE_CODE', 'en-in')
+TIME_ZONE = os.getenv('TIME_ZONE', 'Asia/Kolkata')
+
+# Indian Payment Gateway Integration (Optional)
+RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID')
+RAZORPAY_SECRET = os.getenv('RAZORPAY_SECRET')
+
+# Currency settings for India
+DEFAULT_CURRENCY = 'INR'
+CURRENCY_SYMBOL = '₹'
