@@ -373,7 +373,7 @@ export default function AssessmentHistory() {
                 ) : (
                   <>
                     <button
-                      onClick={() => viewAssessmentDetails(stats.most_recent_assessment.session_id)}
+                      onClick={() => stats.most_recent_assessment && viewAssessmentDetails(stats.most_recent_assessment.session_id)}
                       className="bg-white/10 text-white px-6 py-2 rounded-xl font-semibold hover:bg-white/20 transition-all duration-200"
                     >
                       View Results

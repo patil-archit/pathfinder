@@ -14,7 +14,6 @@ const Signup = () => {
   const [socialUrls, setSocialUrls] = useState<any>({});
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -138,12 +137,6 @@ const Signup = () => {
       window.location.href = socialUrls[provider];
     }
   };
-
-  const steps = [
-    { title: "Welcome", description: "Join PathFinder" },
-    { title: "Account", description: "Create your account" },
-    { title: "Complete", description: "You're all set!" }
-  ];
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">

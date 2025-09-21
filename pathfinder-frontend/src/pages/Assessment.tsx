@@ -1,19 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import client from '../api/axiosClient';
 
 interface Message {
   id: number;
   type: 'bot' | 'user';
   content: string;
   options?: string[];
-}
-
-interface AssessmentResponse {
-  next_question: string;
-  options?: string[];
-  is_complete: boolean;
-  career_recommendations?: CareerRecommendation[];
 }
 
 interface CareerRecommendation {

@@ -282,7 +282,6 @@ export default function AIAssessment() {
   };
 
   const [fallbackQuestionIndex, setFallbackQuestionIndex] = useState(0);
-  const [fallbackResponses, setFallbackResponses] = useState<string[]>([]);
 
   const fallbackQuestions = [
     {
@@ -355,7 +354,6 @@ export default function AIAssessment() {
   };
 
   const presentFallbackQuestionFlow = (answer: string) => {
-    setFallbackResponses(prev => [...prev, answer]);
     setFallbackQuestionIndex(prev => prev + 1);
     
     if (fallbackQuestionIndex + 1 < fallbackQuestions.length) {

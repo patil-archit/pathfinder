@@ -158,25 +158,6 @@ export default function Dashboard() {
     }
   };
 
-  const handleAssessmentSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      if (profile?.id) {
-        await client.put(`profiles/${profile.id}/`, assessmentScores);
-        await fetchProfile();
-        await fetchInsights();
-        alert('Assessment scores updated successfully!');
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Error saving assessment. Try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const generateRecommendations = async () => {
     setLoading(true);
     try {
@@ -194,10 +175,6 @@ export default function Dashboard() {
 
   const handleInputChange = (field: string, value: string | number) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleScoreChange = (field: string, value: number) => {
-    setAssessmentScores(prev => ({ ...prev, [field]: value }));
   };
 
   return (
