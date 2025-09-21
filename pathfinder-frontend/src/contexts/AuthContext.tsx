@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getApiUrl } from '../config/api';
 
 interface User {
   id: number;
@@ -51,7 +52,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       
       if (accessToken && storedUser) {
         // Verify token is still valid by making a test request
-        const response = await fetch('http://127.0.0.1:8000/api/auth/profile/', {
+        const response = await fetch(getApiUrl('auth/profile'), {
           headers: {
             'Authorization': `Bearer ${accessToken}`
           }
@@ -84,7 +85,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return;
       }
 
-      const response = await fetch('http://127.0.0.1:8000/api/token/refresh/', {
+      const response = await fetch(getApiUrl('token/refresh'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

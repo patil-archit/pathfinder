@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { getApiUrl } from '../config/api';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -30,7 +31,7 @@ const Signup = () => {
   React.useEffect(() => {
     const fetchSocialUrls = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/auth/social/urls/');
+        const response = await fetch(getApiUrl('auth/social/urls'));
         if (response.ok) {
           const data = await response.json();
           setSocialUrls(data.social_urls);
@@ -103,7 +104,7 @@ const Signup = () => {
     setErrors({});
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/auth/register/', {
+      const response = await fetch(getApiUrl('auth/register'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

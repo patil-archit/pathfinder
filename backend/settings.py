@@ -164,8 +164,11 @@ CORS_ALLOW_ALL_ORIGINS = True  # For development only
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React default
     "http://127.0.0.1:3000",
+    "http://localhost:5173",  # Vite default
+    "http://127.0.0.1:5173",
     "http://localhost:8080",  # Vue default
     "http://127.0.0.1:8080",
+    "https://pathfinder-flame.vercel.app",  # Vercel deployment
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -190,8 +193,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 SOCIALACCOUNT_AUTO_SIGNUP = True
-LOGIN_REDIRECT_URL = 'http://localhost:5173/dashboard'
-ACCOUNT_LOGOUT_REDIRECT_URL = 'http://localhost:5173/'
+LOGIN_REDIRECT_URL = os.getenv('FRONTEND_URL', 'http://localhost:5173') + '/dashboard'
+ACCOUNT_LOGOUT_REDIRECT_URL = os.getenv('FRONTEND_URL', 'http://localhost:5173') + '/'
 
 # Frontend URL for redirects
 FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:5173')
