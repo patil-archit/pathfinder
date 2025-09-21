@@ -45,9 +45,9 @@ MIDDLEWARE = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME', 'sql12345678_pathfinder'),  # FreeSQLDatabase format
-        'USER': os.getenv('DB_USER', 'sql12345678'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'your-generated-password'),
+        'NAME': os.getenv('DB_NAME', 'sql12799492'),  # Updated with correct database name
+        'USER': os.getenv('DB_USER', 'sql12799492'),  # Updated with correct username
+        'PASSWORD': os.getenv('DB_PASSWORD', 'JKySVMa5nV'),  # Updated with correct password
         'HOST': os.getenv('DB_HOST', 'sql12.freesqldatabase.com'),
         'PORT': os.getenv('DB_PORT', '3306'),
         'OPTIONS': {
