@@ -25,12 +25,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&#5)&+hxwb*@6-*4%@pkj-mhn2y-7cp_=!3qzp^!08mz@mw&^i'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-&#5)&+hxwb*@6-*4%@pkj-mhn2y-7cp_=!3qzp^!08mz@mw&^i')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'pathfinder-backend-9hbe.onrender.com',
+    '.vercel.app',
+]
 
 
 # Application definition
@@ -98,16 +103,21 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'career_pathfinder',
-        'USER': 'root',
-        'PASSWORD': 'PLKoij#@1',
-        'HOST': 'localhost',
-        'PORT': '3306',
+# Check if DATABASE_URL is provided (for production)
+if os.getenv('DATABASE_URL'):
+    # Parse DATABASE_URL for production (Railway, Render, etc.)
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
     }
-}
+else:
+    # Default to SQLite for development if no MySQL is available
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 
