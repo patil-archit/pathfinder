@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from django.http import JsonResponse
+from django.db import connection
 from users.views import UserProfileViewSet, register_user, login_user, get_user_profile
 from users.social_auth_views import (
     social_auth_success, get_social_login_urls, 
@@ -22,11 +23,31 @@ router.register(r'career-progress', UserCareerProgressViewSet, basename='careerp
 def health_check(request):
     return JsonResponse({'status': 'healthy', 'service': 'PathFinder AI Career Advisor'})
 
+def db_health_check(request):
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT 1")
+            cursor.fetchone()
+        return JsonResponse({
+            'status': 'healthy', 
+            'database': 'connected',
+            'database_name': connection.settings_dict.get('NAME'),
+            'database_host': connection.settings_dict.get('HOST'),
+            'database_user': connection.settings_dict.get('USER')
+        })
+    except Exception as e:
+        return JsonResponse({
+            'status': 'unhealthy', 
+            'database': 'disconnected',
+            'error': str(e)
+        }, status=500)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/assessments/', include('assessments.urls')),
     path('api/health/', health_check, name='health_check'),
+    path('api/db-health/', db_health_check, name='db_health_check'),
 ]
 
 

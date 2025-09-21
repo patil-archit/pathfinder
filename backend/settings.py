@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.linkedin_oauth2',
     
     # Local apps
+    'backend',  # Add backend app for management commands
     'users',
     'recommendations',
     'assessments',
